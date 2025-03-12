@@ -36,7 +36,7 @@ resource "aws_instance" "Loki" {
   key_name               = "testing-dev-1"
   subnet_id              = data.aws_subnet.selected_subnet.id
   vpc_security_group_ids = [data.aws_security_group.selected_sg.id]
-  #user_data              = file("loki-install.sh")
+
 
   tags = {
     Name = "Loki Server"
@@ -48,27 +48,12 @@ resource "aws_instance" "PromTail" {
   key_name               = "testing-dev-1"
   subnet_id              = data.aws_subnet.selected_subnet.id
   vpc_security_group_ids = [data.aws_security_group.selected_sg.id]
-  #user_data              = file("promtail-install.sh")
-  # user_data              = file("sonarqube.sh")
 
   tags = {
     Name = "PromTail"
   }
 }
-# resource "aws_instance" "nexus" {
-#   ami                    = "ami-03bb6d83c60fc5f7c"
-#   instance_type          = "t2.medium"
-#   key_name               = "testing-dev-1"
-#   subnet_id              = data.aws_subnet.selected_subnet.id
-#   vpc_security_group_ids = [data.aws_security_group.selected_sg.id]
-# #  user_data              = file("nexus.sh")
 
-
-#   tags = {
-#     Name                               = "nexus"
-#     "kubernetes.io/cluster/kubernetes" = "owned"
-#   }
-# }
 
 # Outputs for the public IPs
 output "Loki_public_ip" {
@@ -79,7 +64,4 @@ output "PromTail_public_ip" {
   description = "The Public IP address of the PromTail instance"
   value       = aws_instance.PromTail.public_ip
 }
-# output "Nexus_public_ip" {
-#   description = "The Public IP address of the Nexus instance"
-#   value       = aws_instance.nexus.public_ip
-# }
+
